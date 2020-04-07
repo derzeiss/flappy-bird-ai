@@ -1,0 +1,5 @@
+Population
+    Player
+        NeuralNetwork
+            Nodes
+                Gene

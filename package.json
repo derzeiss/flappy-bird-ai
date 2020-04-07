@@ -1,0 +1,31 @@
+{
+  "name": "flappy-bird-ai",
+  "author": "derzeiss",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "private": true,
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^4.0.4",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "devDependencies": {
+    "@types/html-webpack-plugin": "^3.2.2",
+    "@types/webpack": "^4.41.10",
+    "@types/webpack-dev-server": "^3.10.1"
+  }
+}
