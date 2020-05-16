@@ -1,6 +1,6 @@
 // NOTE: All computed variables are for performance
 
-export const DEBUG = false;
+export const DEBUG = true;
 
 export const CANVAS_ID = 'game';                // id of <canvas> html-element
 export const CANVAS_WIDTH = 375;                // canvas width (html-element is set accordingly)

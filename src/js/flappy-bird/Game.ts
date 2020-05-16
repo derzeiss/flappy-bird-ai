@@ -1,19 +1,9 @@
-import {
-  CANVAS_HEIGHT,
-  CANVAS_ID,
-  CANVAS_WIDTH,
-  COL_BG,
-  COL_DEAD,
-  COL_PIPE,
-  COL_PLAYER,
-  DEBUG,
-  KEY_FLAP,
-  KEY_PAUSE
-} from "./config";
+import {CANVAS_HEIGHT, CANVAS_ID, CANVAS_WIDTH, COL_BG, COL_DEAD, COL_PIPE, COL_PLAYER, DEBUG} from "./config";
 import * as InputHandler from "./InputHandler";
 import PipeManager from "./PipeManager";
 import Player from "./Player";
 import {IEntity} from "./_interfaces";
+import {AudioInputHandler} from "./AudioInputHandler";
 
 interface IGameEntities {
   all: IEntity[],
@@ -28,6 +18,7 @@ export default class Game {
   private readonly ctx: CanvasRenderingContext2D;
   private running: boolean;
   private pause: boolean;
+  private inputHandler: AudioInputHandler;
 
   constructor() {
     this.entities = {
@@ -42,17 +33,22 @@ export default class Game {
     this.running = true;
     this.pause = false;
 
-    InputHandler.addBinding(KEY_FLAP, () => this.entities.humanPlayers.forEach(e => e.flap()));
-    InputHandler.addBinding(KEY_PAUSE, this.togglePause.bind(this));
-    InputHandler.register();
+    // InputHandler.addBinding(KEY_FLAP, () => this.entities.humanPlayers.forEach(e => e.flap()));
+    // InputHandler.addBinding(KEY_PAUSE, this.togglePause.bind(this));
+    // InputHandler.register();
+
+    this.inputHandler = new AudioInputHandler();
   }
 
-  setup() {
+  setup(): Promise<any> {
     this.addPlayer(new Player(this));
     this.pipeManager.reset();
+
+    return this.inputHandler.isMicReady;
   }
 
   mainloop() {
+    this.inputHandler.getInput(() => this.entities.humanPlayers.forEach(e => e.flap()));
     this.update();
     this.handleCollisions();
     this.render();
@@ -79,7 +75,6 @@ export default class Game {
   gameOver() {
     this.running = false;
     InputHandler.deregister();
-    console.log('game over');
   }
 
   addPlayer(player: Player, humanControlled = true) {
